@@ -107,7 +107,7 @@ export default function AssetTable({ initialData }: { initialData: any[] }) {
           <div className="qr-box">
             <h3>QR Asset {qrItem.asset_num}</h3>
             <QRCodeCanvas
-              value={`${window.location.origin}/asset/detail?id=${qrItem.id}`}
+              value={`${process.env.NEXT_PUBLIC_SITE_URL}/asset/detail?id=${qrItem.id}`}
               size={200}
             />
             <button onClick={() => setQrItem(null)}>Tutup</button>
