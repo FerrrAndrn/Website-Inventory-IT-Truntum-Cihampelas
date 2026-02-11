@@ -498,3 +498,23 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+@media (max-width: 768px) {
+  .header-text {
+    display: none;
+  }
+
+  .header {
+    justify-content: center;
+  }
+
+  .header-left {
+    position: absolute;
+    left: 20px;
+  }
+
+  .header-logo {
+    position: static;
+    transform: none;
+  }
+}
