@@ -18,7 +18,6 @@ export default function AssetTable({
   const [qrItem, setQrItem] = useState<any>(null)
   const router = useRouter()
 
-  // ✅ ESC CLOSE
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setQrItem(null)
@@ -40,7 +39,6 @@ export default function AssetTable({
 
   return (
     <>
-      {/* TABLE */}
       <motion.div
         className="table-wrapper"
         initial={{ opacity: 0, y: 40 }}
@@ -107,7 +105,6 @@ export default function AssetTable({
         </table>
       </motion.div>
 
-      {/* MODAL */}
       <AnimatePresence>
         {qrItem && (
           <motion.div

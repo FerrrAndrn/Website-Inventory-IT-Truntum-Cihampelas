@@ -66,6 +66,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </button>
 
               <div className={`submenu ${inventoryOpen ? 'submenu-open' : ''}`}>
+                <Link href="/laptop" onClick={() => setOpen(false)}>
+                  Laptop
+                </Link>
+
                 <Link href="/tv" onClick={() => setOpen(false)}>
                   Smart TV
                 </Link>

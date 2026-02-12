@@ -7,9 +7,9 @@ import { FiCode, FiSearch } from 'react-icons/fi'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function SmartTVTable({
+export default function LaptopTable({
   initialData,
-  tableName = 'smart_tv'
+  tableName = 'laptop'
 }: {
   initialData: any[]
   tableName?: string
@@ -39,7 +39,6 @@ export default function SmartTVTable({
 
   return (
     <>
-    
       <motion.div
         className="table-wrapper"
         initial={{ opacity: 0, y: 40 }}
@@ -87,7 +86,7 @@ export default function SmartTVTable({
                   <button
                     className="icon-btn detail"
                     onClick={() =>
-                      router.push(`/tv/detail?code=${item.asset_code}`)
+                      router.push(`/laptop/detail?code=${item.asset_code}`)
                     }
                   >
                     <FiSearch />
@@ -106,7 +105,6 @@ export default function SmartTVTable({
         </table>
       </motion.div>
 
-      {/* MODAL */}
       <AnimatePresence>
         {qrItem && (
           <motion.div
@@ -114,7 +112,7 @@ export default function SmartTVTable({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setQrItem(null)} // klik background close
+            onClick={() => setQrItem(null)} 
           >
             <motion.div
               className="qr-box"
@@ -122,9 +120,8 @@ export default function SmartTVTable({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.85, opacity: 0 }}
               transition={{ duration: 0.4 }}
-              onClick={(e) => e.stopPropagation()} // supaya klik dalam box ga close
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* CLOSE BUTTON */}
               <button
                 className="qr-close"
                 onClick={() => setQrItem(null)}
@@ -132,10 +129,10 @@ export default function SmartTVTable({
                 ✕
               </button>
 
-              <h3>QR Smart TV {qrItem.asset_code}</h3>
+              <h3>QR Laptop {qrItem.asset_code}</h3>
 
               <QRCodeCanvas
-                value={`${process.env.NEXT_PUBLIC_SITE_URL}/tv/detail?code=${qrItem.asset_code}`}
+                value={`${process.env.NEXT_PUBLIC_SITE_URL}/laptop/detail?code=${qrItem.asset_code}`}
                 size={200}
               />
             </motion.div>

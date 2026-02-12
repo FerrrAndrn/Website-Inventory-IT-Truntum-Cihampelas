@@ -6,33 +6,33 @@ import { supabase } from '@/lib/supabaseClient'
 import { motion } from 'framer-motion'
 import { FiArrowLeft } from 'react-icons/fi'
 
-type SmartTV = {
-  asset_code?: string
-  asset_name?: string
-  category?: string
-  location?: string
-  brand?: string
-  serial_number?: string
-  purchase_date?: string
-  status?: string
+type Laptop = {
+  asset_code: string
+  asset_name: string
+  category: string
+  location: string
+  brand: string
+  serial_number: string
+  purchase_date: string
+  status: string
 }
 
-export default function SmartTVDetailContent() {
+export default function LaptopDetailContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const code = searchParams.get('code')
 
-  const [data, setData] = useState<SmartTV | null>(null)
+  const [data, setData] = useState<Laptop | null>(null)
   const [loading, setLoading] = useState(true)
 
-  // Auto N/A
+  // Helper untuk auto N/A
   const show = (v: any) =>
     v === null || v === undefined || v === ''
       ? 'N/A'
       : v
 
-  // Status color logic
-  const getStatusClass = (status?: string) => {
+  // Helper untuk warna status
+  const getStatusClass = (status: string | null) => {
     if (!status) return 'bad'
 
     const s = status.toLowerCase()
@@ -57,7 +57,7 @@ export default function SmartTVDetailContent() {
       }
 
       const { data, error } = await supabase
-        .from('smart_tv')
+        .from('laptop')
         .select('*')
         .eq('asset_code', code)
         .single()
@@ -69,7 +69,7 @@ export default function SmartTVDetailContent() {
     fetchData()
   }, [code])
 
-  if (!code) return <div>Asset Code tidak ditemukan</div>
+  if (!code) return <div>ID tidak ditemukan</div>
 
   if (loading) {
     return (
@@ -87,7 +87,7 @@ export default function SmartTVDetailContent() {
 
         <motion.button
           className="back-btn"
-          onClick={() => router.push('/tv')}
+          onClick={() => router.push('/laptop')}
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}

@@ -7,14 +7,14 @@ import { motion } from 'framer-motion'
 import { FiArrowLeft } from 'react-icons/fi'
 
 type Telephone = {
-  asset_code: string
-  asset_name: string
-  category: string
-  location: string
-  brand: string
-  serial_number: string
-  purchase_date: string
-  status: string
+  asset_code?: string
+  asset_name?: string
+  category?: string
+  location?: string
+  brand?: string
+  serial_number?: string
+  purchase_date?: string
+  status?: string
 }
 
 export default function TelephoneDetailContent() {
@@ -24,6 +24,30 @@ export default function TelephoneDetailContent() {
 
   const [data, setData] = useState<Telephone | null>(null)
   const [loading, setLoading] = useState(true)
+
+  // Auto N/A
+  const show = (v: any) =>
+    v === null || v === undefined || v === ''
+      ? 'N/A'
+      : v
+
+  // Status color logic
+  const getStatusClass = (status?: string) => {
+    if (!status) return 'bad'
+
+    const s = status.toLowerCase()
+
+    if (
+      s === 'good' ||
+      s === 'active' ||
+      s === 'available' ||
+      s === 'all good'
+    ) {
+      return 'good'
+    }
+
+    return 'bad'
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,7 +99,7 @@ export default function TelephoneDetailContent() {
         </motion.button>
 
         <motion.div
-          className="content"
+          className="content detail-card"
           key={data.asset_code}
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
@@ -85,26 +109,34 @@ export default function TelephoneDetailContent() {
           }}
         >
           <motion.h1
+            className="title-gradient-gold"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1 }}
           >
-            {data.asset_name}
+            {show(data.asset_name)}
           </motion.h1>
 
           <motion.div
+            className="detail-grid"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.9, delay: 0.3 }}
           >
-            <p><strong>Asset Code:</strong> {data.asset_code}</p>
-            <p><strong>Category:</strong> {data.category}</p>
-            <p><strong>Location:</strong> {data.location}</p>
-            <p><strong>Brand:</strong> {data.brand}</p>
-            <p><strong>Serial Number:</strong> {data.serial_number}</p>
-            <p><strong>Purchase Date:</strong> {data.purchase_date}</p>
-            <p><strong>Status:</strong> {data.status}</p>
+            <div>Asset Code</div><div>:</div><div>{show(data.asset_code)}</div>
+            <div>Category</div><div>:</div><div>{show(data.category)}</div>
+            <div>Location</div><div>:</div><div>{show(data.location)}</div>
+            <div>Brand</div><div>:</div><div>{show(data.brand)}</div>
+            <div>Serial Number</div><div>:</div><div>{show(data.serial_number)}</div>
+            <div>Purchase Date</div><div>:</div><div>{show(data.purchase_date)}</div>
+            <div>Status</div><div>:</div>
+            <div>
+              <span className={`status-badge ${getStatusClass(data.status)}`}>
+                {show(data.status)}
+              </span>
+            </div>
           </motion.div>
+
         </motion.div>
 
       </div>
