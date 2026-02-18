@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabaseClient'
 import { motion } from 'framer-motion'
 import { FiArrowLeft } from 'react-icons/fi'
 
-type Computer = {
+type CCTV = {
   asset_code: string
   asset_name: string
   category: string
@@ -17,12 +17,12 @@ type Computer = {
   status: string
 }
 
-export default function ComputerDetailContent() {
+export default function CCTVDetailContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const code = searchParams.get('code')
 
-  const [data, setData] = useState<Computer | null>(null)
+  const [data, setData] = useState<CCTV | null>(null)
   const [loading, setLoading] = useState(true)
 
   const show = (v: any) =>
@@ -55,7 +55,7 @@ export default function ComputerDetailContent() {
       }
 
       const { data, error } = await supabase
-        .from('computer')
+        .from('cctv')
         .select('*')
         .eq('asset_code', code)
         .single()
@@ -85,7 +85,7 @@ export default function ComputerDetailContent() {
 
         <motion.button
           className="back-btn"
-          onClick={() => router.push('/computer')}
+          onClick={() => router.push('/cctv')}
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}

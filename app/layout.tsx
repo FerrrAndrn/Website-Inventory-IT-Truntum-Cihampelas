@@ -4,10 +4,12 @@ import './globals.css'
 import { ReactNode, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false)
   const [inventoryOpen, setInventoryOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <html lang="en">
@@ -29,10 +31,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
           <div className="header-logo">
             <Image
-              src="/trwh.png"
+              src="/trb.png"
               alt="Truntum Cihampelas"
-              width={120}
-              height={35}
+              width={197}
+              height={50}
               priority
             />
           </div>
@@ -42,7 +44,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="sidebar-title">Menu</div>
 
           <nav className="sidebar-menu">
-            <Link href="/" onClick={() => setOpen(false)}>
+
+            <Link
+              href="/"
+              className={pathname === '/' ? 'active' : ''}
+              onClick={() => setOpen(false)}
+            >
               Dashboard
             </Link>
 
@@ -66,25 +73,71 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </button>
 
               <div className={`submenu ${inventoryOpen ? 'submenu-open' : ''}`}>
-                <Link href="/laptop" onClick={() => setOpen(false)}>
+
+                 <Link
+                  href="/cctv"
+                  className={pathname === '/cctv' ? 'active' : ''}
+                  onClick={() => setOpen(false)}
+                >
+                  CCTV
+                </Link>
+                
+                <Link
+                  href="/computer"
+                  className={pathname === '/computer' ? 'active' : ''}
+                  onClick={() => setOpen(false)}
+                >
+                  Computer
+                </Link>
+
+                <Link
+                  href="/ittools"
+                  className={pathname === '/ittools' ? 'active' : ''}
+                  onClick={() => setOpen(false)}
+                >
+                  IT Equipment
+                </Link>
+
+                <Link
+                  href="/laptop"
+                  className={pathname === '/laptop' ? 'active' : ''}
+                  onClick={() => setOpen(false)}
+                >
                   Laptop
                 </Link>
 
-                <Link href="/printer" onClick={() => setOpen(false)}>
+                <Link
+                  href="/printer"
+                  className={pathname === '/printer' ? 'active' : ''}
+                  onClick={() => setOpen(false)}
+                >
                   Printer
                 </Link>
 
-                <Link href="/sdb" onClick={() => setOpen(false)}>
+                <Link
+                  href="/sdb"
+                  className={pathname === '/sdb' ? 'active' : ''}
+                  onClick={() => setOpen(false)}
+                >
                   Safe Deposit Box
                 </Link>
 
-                <Link href="/tv" onClick={() => setOpen(false)}>
+                <Link
+                  href="/tv"
+                  className={pathname === '/tv' ? 'active' : ''}
+                  onClick={() => setOpen(false)}
+                >
                   Smart TV
                 </Link>
 
-                <Link href="/telephone" onClick={() => setOpen(false)}>
+                <Link
+                  href="/telephone"
+                  className={pathname === '/telephone' ? 'active' : ''}
+                  onClick={() => setOpen(false)}
+                >
                   Telephone
                 </Link>
+
               </div>
             </div>
 
