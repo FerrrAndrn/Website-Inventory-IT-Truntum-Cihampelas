@@ -6,23 +6,23 @@ import { supabase } from '@/lib/supabaseClient'
 import { motion } from 'framer-motion'
 import { FiArrowLeft } from 'react-icons/fi'
 
-type Laptop = {
-  asset_code: string
-  asset_name: string
-  category: string
-  location: string
-  brand: string
-  serial_number: string
-  purchase_date: string
-  status: string
+type Printer = {
+  asset_code?: string
+  asset_name?: string
+  category?: string
+  location?: string
+  brand?: string
+  serial_number?: string
+  purchase_date?: string
+  status?: string
 }
 
-export default function LaptopDetailContent() {
+export default function PrinterDetailContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const code = searchParams.get('code')
 
-  const [data, setData] = useState<Laptop | null>(null)
+  const [data, setData] = useState<Printer | null>(null)
   const [loading, setLoading] = useState(true)
 
   const show = (v: any) =>
@@ -30,7 +30,7 @@ export default function LaptopDetailContent() {
       ? 'N/A'
       : v
 
-  const getStatusClass = (status: string | null) => {
+  const getStatusClass = (status?: string) => {
     if (!status) return 'bad'
 
     const s = status.toLowerCase()
@@ -55,7 +55,7 @@ export default function LaptopDetailContent() {
       }
 
       const { data, error } = await supabase
-        .from('laptop')
+        .from('printer')
         .select('*')
         .eq('asset_code', code)
         .single()
@@ -85,7 +85,7 @@ export default function LaptopDetailContent() {
 
         <motion.button
           className="back-btn"
-          onClick={() => router.push('/laptop')}
+          onClick={() => router.push('/printer')}
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}

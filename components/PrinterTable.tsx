@@ -1,15 +1,14 @@
 "use client"
 
-import { useState, useEffect } from 'react'
-import { supabase } from '@/lib/supabaseClient'
-import { QRCodeCanvas } from 'qrcode.react'
-import { FiCode, FiSearch } from 'react-icons/fi'
-import { useRouter } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from "react"
+import { QRCodeCanvas } from "qrcode.react"
+import { FiCode, FiSearch } from "react-icons/fi"
+import { useRouter } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion"
 
-export default function SmartTVTable({
+export default function PrinterTable({
   initialData,
-  tableName = 'smart_tv'
+  tableName = "printer"
 }: {
   initialData: any[]
   tableName?: string
@@ -20,31 +19,25 @@ export default function SmartTVTable({
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setQrItem(null)
+      if (e.key === "Escape") setQrItem(null)
     }
 
-    if (qrItem) {
-      window.addEventListener('keydown', handleEsc)
-    }
-
-    return () => {
-      window.removeEventListener('keydown', handleEsc)
-    }
+    if (qrItem) window.addEventListener("keydown", handleEsc)
+    return () => window.removeEventListener("keydown", handleEsc)
   }, [qrItem])
 
   const show = (v: any) =>
-    v === null || v === undefined || v === ''
+    v === null || v === undefined || v === ""
       ? <span className="na">N/A</span>
       : v
 
   return (
     <>
-    
       <motion.div
         className="table-wrapper"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.8 }}
       >
         <table className="asset-table">
           <thead>
@@ -68,10 +61,7 @@ export default function SmartTVTable({
                 key={item.asset_code}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: i * 0.05
-                }}
+                transition={{ duration: 0.5, delay: i * 0.05 }}
               >
                 <td>{i + 1}</td>
                 <td>{show(item.asset_code)}</td>
@@ -87,7 +77,7 @@ export default function SmartTVTable({
                   <button
                     className="icon-btn detail"
                     onClick={() =>
-                      router.push(`/tv/detail?code=${item.asset_code}`)
+                      router.push(`/printer/detail?code=${item.asset_code}`)
                     }
                   >
                     <FiSearch />
@@ -106,7 +96,6 @@ export default function SmartTVTable({
         </table>
       </motion.div>
 
-      {/* MODAL */}
       <AnimatePresence>
         {qrItem && (
           <motion.div
@@ -131,10 +120,10 @@ export default function SmartTVTable({
                 ✕
               </button>
 
-              <h3>QR Smart TV {qrItem.asset_code}</h3>
+              <h3>QR Printer {qrItem.asset_code}</h3>
 
               <QRCodeCanvas
-                value={`${process.env.NEXT_PUBLIC_SITE_URL}/tv/detail?code=${qrItem.asset_code}`}
+                value={`${process.env.NEXT_PUBLIC_SITE_URL}/printer/detail?code=${qrItem.asset_code}`}
                 size={200}
               />
             </motion.div>

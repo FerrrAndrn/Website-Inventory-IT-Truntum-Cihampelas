@@ -25,13 +25,11 @@ export default function TelephoneDetailContent() {
   const [data, setData] = useState<Telephone | null>(null)
   const [loading, setLoading] = useState(true)
 
-  // Auto N/A
   const show = (v: any) =>
     v === null || v === undefined || v === ''
       ? 'N/A'
       : v
 
-  // Status color logic
   const getStatusClass = (status?: string) => {
     if (!status) return 'bad'
 

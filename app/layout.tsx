@@ -70,6 +70,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   Laptop
                 </Link>
 
+                <Link href="/printer" onClick={() => setOpen(false)}>
+                  Printer
+                </Link>
+
+                <Link href="/sdb" onClick={() => setOpen(false)}>
+                  Safe Deposit Box
+                </Link>
+
                 <Link href="/tv" onClick={() => setOpen(false)}>
                   Smart TV
                 </Link>

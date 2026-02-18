@@ -7,9 +7,9 @@ import { FiCode, FiSearch } from 'react-icons/fi'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function SmartTVTable({
+export default function SDBTable({
   initialData,
-  tableName = 'smart_tv'
+  tableName = 'safe_deposit_box'
 }: {
   initialData: any[]
   tableName?: string
@@ -87,7 +87,7 @@ export default function SmartTVTable({
                   <button
                     className="icon-btn detail"
                     onClick={() =>
-                      router.push(`/tv/detail?code=${item.asset_code}`)
+                      router.push(`/sdb/detail?code=${item.asset_code}`)
                     }
                   >
                     <FiSearch />
@@ -106,7 +106,6 @@ export default function SmartTVTable({
         </table>
       </motion.div>
 
-      {/* MODAL */}
       <AnimatePresence>
         {qrItem && (
           <motion.div
@@ -131,10 +130,10 @@ export default function SmartTVTable({
                 ✕
               </button>
 
-              <h3>QR Smart TV {qrItem.asset_code}</h3>
+              <h3>QR Safe Deposit Box {qrItem.asset_code}</h3>
 
               <QRCodeCanvas
-                value={`${process.env.NEXT_PUBLIC_SITE_URL}/tv/detail?code=${qrItem.asset_code}`}
+                value={`${process.env.NEXT_PUBLIC_SITE_URL}/sdb/detail?code=${qrItem.asset_code}`}
                 size={200}
               />
             </motion.div>
