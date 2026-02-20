@@ -1,0 +1,37 @@
+export const dynamic = 'force-dynamic'
+
+import { supabase } from '@/lib/supabaseClient'
+import FadeIn from '@/components/FadeIn'
+import RefTable from '@/components/RefTable'
+
+export default async function RefPage() {
+  const { data, error } = await supabase
+    .from('refrigerator')
+    .select('*')
+    .order('id', { ascending: true })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return (
+    <main className="main-container">
+
+      <FadeIn>
+        <div className="page-title">
+          <h1 className="title-gradient-gold">
+            REFRIGERATOR INVENTORY
+          </h1>
+          <p className="title-gradient-gold">
+            TRUNTUM CIHAMPELAS
+          </p>
+        </div>
+      </FadeIn>
+
+      <FadeIn delay={0.2}>
+        <RefTable initialData={data ?? []} />
+      </FadeIn>
+
+    </main>
+  )
+}

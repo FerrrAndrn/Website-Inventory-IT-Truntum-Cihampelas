@@ -113,6 +113,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 >
                   Printer
                 </Link>
+                  
+                <Link
+                  href="ref"
+                  className={pathname === '/ref' ? 'active' : ''}
+                  onClick={() => setOpen(false)}
+                >
+                  Refrigerator
+                </Link>
 
                 <Link
                   href="/sdb"
