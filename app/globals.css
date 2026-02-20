@@ -272,23 +272,26 @@ body {
   overflow-x: auto;
   margin-top: 40px;
   padding: 0 40px;
-  display: flex;
-  justify-content: center;
+  -webkit-overflow-scrolling: touch;
 }
 
 .asset-table {
-  width: 95%;
+  width: 100%;
   max-width: 1500px;
+  min-width: 1100px; 
+  margin: 0 auto 40px;
+  
   border-collapse: separate;
   border-spacing: 0;
   background: white;
   border-radius: 22px;
-  margin-bottom: 40px;
   overflow: hidden;
+
   box-shadow:
     0 35px 80px rgba(0,0,0,0.12),
     0 15px 35px rgba(176,138,74,0.15),
     0 5px 15px rgba(0,0,0,0.08);
+
   transition: all 0.4s ease;
 }
 
@@ -345,10 +348,18 @@ body {
 .asset-table th:nth-child(3),
 .asset-table td:nth-child(3) {
   white-space: normal;
-  word-break: break-word;
-  max-width: 220px;
-  line-height: 1.4;
+  min-width: 140px;
+  font-weight: 500;
 }
+
+.na {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+  .asset-table {
+    min-width: 900px;
+  }
 
 .asset-table tbody tr:hover {
   background: rgba(176, 138, 74, 0.12);
