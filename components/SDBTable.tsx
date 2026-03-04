@@ -158,7 +158,7 @@ export default function SDBTable({
                 className="qr-close"
                 onClick={() => setQrItem(null)}
               >
-                ✕
+                <span>X</span>
               </button>
 
               <h3>QR Safe Deposit Box {qrItem.asset_code}</h3>
@@ -175,8 +175,7 @@ export default function SDBTable({
                 className="qr-download"
                 onClick={downloadQR}
               >
-                Download
-                <FiDownload className="download-icon" />
+               <span>Download</span>
               </button>
             </motion.div>
           </motion.div>

@@ -415,11 +415,12 @@ body {
 .qr-box button {
   margin-top: 16px;
   padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  background: #b08a4a;
-  color: white;
-  cursor: pointer;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #b08a4a;
+  border-radius: 12px;
+  background: #ffffff;
+   cursor: pointer;
 }
 
 .page-title {
@@ -517,28 +518,67 @@ body {
   height: 36px;
 
   border-radius: 50%;
-  border: none;
+  border: 1px solid #b08a4a; /* default gold border */
   cursor: pointer;
 
-  background: rgba(0, 0, 0, 0.05);
-  color: #444;
+  background: white;
+  color: #b08a4a;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  transition: all 0.25s ease;
+  overflow: hidden;
+  z-index: 2;
+
+  transition: border 0.4s ease;
+}
+
+.qr-close::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: black;
+
+  clip-path: circle(0% at 50% 100%);
+  transition: clip-path 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+  z-index: 0;
+}
+
+.qr-close:hover::before {
+  clip-path: circle(150% at 50% 100%);
+}
+
+.qr-close > * {
+  position: relative;
+  z-index: 2;
+  transition: color 0.2s ease 0.2s; 
+}
+
+.qr-close span {
+  position: relative;
+  z-index: 2;
+
+  display: flex;          
+  align-items: center;    
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  
+  width: 100%;
+  height: 100%;
 }
 
 .qr-close:hover {
-  background: #ff4d4f;
-  color: white;
-  transform: rotate(90deg) scale(1.1);
-  box-shadow: 0 8px 20px rgba(255, 77, 79, 0.4);
+  border: 1px solid black; 
 }
 
+.qr-close:hover > * {
+  color: white; 
+}
 
 .qr-box h3 {
   margin-bottom: 20px;
@@ -558,25 +598,45 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.qr-download span {
+  background: linear-gradient(90deg,#7a5a2a,#d3b86f,#7a5a2a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.4s ease;
+}
+
+.qr-download:hover span {
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: white;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .qr-download {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+
   margin-top: 25px;
   padding: 12px 28px;
 
   border-radius: 12px;
-  border: none;
-
+  border: 2px solid #b08a4a;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.5px;
 
   cursor: pointer;
 
-  display: inline-flex;          
-  align-items: center;          
-  justify-content: center;     
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
 
-  line-height: 1;       
+  line-height: 1;
+  color: #b08a4a; 
 
   background: linear-gradient(
     90deg,
@@ -587,39 +647,48 @@ body {
     #7a5a2a 100%
   );
 
-  color: white;
+  box-shadow: 0 12px 25px rgba(176, 138, 74, 0.35);
 
-  box-shadow:
-    0 12px 25px rgba(176, 138, 74, 0.35);
-
-  transition: all 0.3s ease;
+  transition: transform 0.4s ease, 
+              box-shadow 0.4s ease,
+              color 0.4s ease,
+              border-color 0.4s ease;
 }
 
 .qr-download:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow:
-    0 18px 40px rgba(176, 138, 74, 0.45);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.4);
+  border-color: #000;
 }
 
-.qr-download:active {
-  transform: scale(0.98);
+b.qr-download:hover span {
+  -webkit-text-fill-color: white;
+  background: none;
+  transition-delay: 2.8s;
 }
 
-@media (max-width: 500px) {
-  .qr-box {
-    width: 90%;
-    padding: 35px 20px;
-  }
+.qr-download::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: black;
 
-  .qr-download {
-    width: 100%;
-  }
+  clip-path: circle(0% at 50% 100%);
+  transition: clip-path 2.8s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 0;
+}
+
+.qr-download:hover::before {
+  clip-path: circle(150% at 50% 100%);
+}
+
+.qr-download > * {
+  position: relative;
+  z-index: 2;
 }
 
 .download-icon {
   font-size: 18px;
   color: inherit;
-
   margin-left: 4px;
 }
 

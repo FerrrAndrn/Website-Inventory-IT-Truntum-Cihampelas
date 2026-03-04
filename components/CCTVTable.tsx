@@ -158,7 +158,7 @@ export default function CCTVTable({
                 className="qr-close"
                 onClick={() => setQrItem(null)}
               >
-                ✕
+                 <span>X</span>
               </button>
 
               <h3 className="qr-title">
@@ -178,8 +178,7 @@ export default function CCTVTable({
                   onClick={downloadQR}
                   className="qr-download"
                 >
-                  Download
-                  <FiDownload className="download-icon" />
+                  <span>Download</span>
                 </button>
               </div>
             </motion.div>
