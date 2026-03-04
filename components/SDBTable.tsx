@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { QRCodeCanvas } from 'qrcode.react'
-import { FiCode, FiSearch } from 'react-icons/fi'
+import { FiCode, FiSearch, FiDownload } from 'react-icons/fi'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -176,6 +176,7 @@ export default function SDBTable({
                 onClick={downloadQR}
               >
                 Download
+                <FiDownload className="download-icon" />
               </button>
             </motion.div>
           </motion.div>

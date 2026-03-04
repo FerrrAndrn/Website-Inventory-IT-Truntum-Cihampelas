@@ -571,6 +571,13 @@ body {
 
   cursor: pointer;
 
+  display: inline-flex;          
+  align-items: center;          
+  justify-content: center;     
+  gap: 8px;
+
+  line-height: 1;       
+
   background: linear-gradient(
     90deg,
     #7a5a2a 0%,
@@ -607,6 +614,13 @@ body {
   .qr-download {
     width: 100%;
   }
+}
+
+.download-icon {
+  font-size: 18px;
+  color: inherit;
+
+  margin-left: 4px;
 }
 
 .detail-wrapper {
