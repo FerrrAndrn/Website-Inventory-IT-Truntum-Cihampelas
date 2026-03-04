@@ -95,7 +95,7 @@ export default function SmartTVDetailContent() {
           whileTap={{ scale: 0.95 }}
         >
           <FiArrowLeft />
-          Back
+          <span>Back</span>
         </motion.button>
 
         <motion.div
