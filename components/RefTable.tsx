@@ -13,7 +13,7 @@ export default function RefTable({
   initialData: any[]
   tableName?: string
 }) {
-  const [data, setData] = useState(initialData)
+  const [data] = useState(initialData)
   const [qrItem, setQrItem] = useState<any>(null)
   const router = useRouter()
 
@@ -22,14 +22,55 @@ export default function RefTable({
       if (e.key === "Escape") setQrItem(null)
     }
 
-    if (qrItem) window.addEventListener("keydown", handleEsc)
-    return () => window.removeEventListener("keydown", handleEsc)
+    if (qrItem) {
+      window.addEventListener("keydown", handleEsc)
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc)
+    }
   }, [qrItem])
 
   const show = (v: any) =>
     v === null || v === undefined || v === ""
       ? <span className="na">N/A</span>
       : v
+
+  const downloadQR = () => {
+    const qrCanvas = document.getElementById("qr-canvas") as HTMLCanvasElement
+    if (!qrCanvas || !qrItem) return
+
+    const paddingTop = 35
+    const paddingBottom = 25
+
+    const newCanvas = document.createElement("canvas")
+    const ctx = newCanvas.getContext("2d")
+
+    newCanvas.width = qrCanvas.width
+    newCanvas.height = qrCanvas.height + paddingTop + paddingBottom
+
+    ctx!.fillStyle = "#ffffff"
+    ctx!.fillRect(0, 0, newCanvas.width, newCanvas.height)
+
+    ctx!.fillStyle = "#000"
+    ctx!.font = "bold 18px Arial"
+    ctx!.textAlign = "center"
+    ctx!.fillText("REFRIGERATOR ASSET", newCanvas.width / 2, 35)
+
+    ctx!.drawImage(qrCanvas, 0, paddingTop)
+
+    ctx!.font = "bold 20px Arial"
+    ctx!.fillText(
+      qrItem.asset_code,
+      newCanvas.width / 2,
+      paddingTop + qrCanvas.height + 10
+    )
+
+    const link = document.createElement("a")
+    link.download = `QR-${qrItem.asset_code}.png`
+    link.href = newCanvas.toDataURL("image/png")
+    link.click()
+  }
 
   return (
     <>
@@ -61,7 +102,7 @@ export default function RefTable({
                 key={item.asset_code}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
               >
                 <td>{i + 1}</td>
                 <td>{show(item.asset_code)}</td>
@@ -107,10 +148,10 @@ export default function RefTable({
           >
             <motion.div
               className="qr-box"
-              initial={{ scale: 0.85, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -120,12 +161,26 @@ export default function RefTable({
                 ✕
               </button>
 
-              <h3>QR Refrigerator {qrItem.asset_code}</h3>
+              <h3 className="qr-title">
+                QR Refrigerator {qrItem.asset_code}
+              </h3>
 
               <QRCodeCanvas
+                id="qr-canvas"
                 value={`${process.env.NEXT_PUBLIC_SITE_URL}/ref/detail?code=${qrItem.asset_code}`}
-                size={200}
+                size={250}
+                level="H"
+                includeMargin
               />
+
+              <div className="qr-action">
+                <button
+                  onClick={downloadQR}
+                  className="qr-download"
+                >
+                  Download for Print
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}

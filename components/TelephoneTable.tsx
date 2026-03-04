@@ -35,46 +35,42 @@ export default function AssetTable({
     v === null || v === undefined || v === ''
       ? <span className="na">N/A</span>
       : v
-const downloadQR = () => {
-  const qrCanvas = document.getElementById('qr-canvas') as HTMLCanvasElement
-  if (!qrCanvas || !qrItem) return
 
-  const paddingTop = 35      // ruang untuk title atas
-  const paddingBottom = 25   // ruang untuk asset code bawah
+  const downloadQR = () => {
+    const qrCanvas = document.getElementById('qr-canvas') as HTMLCanvasElement
+    if (!qrCanvas || !qrItem) return
 
-  const newCanvas = document.createElement('canvas')
-  const ctx = newCanvas.getContext('2d')
+    const paddingTop = 35
+    const paddingBottom = 25
 
-  newCanvas.width = qrCanvas.width
-  newCanvas.height = qrCanvas.height + paddingTop + paddingBottom
+    const newCanvas = document.createElement('canvas')
+    const ctx = newCanvas.getContext('2d')
 
-  // Background putih
-  ctx!.fillStyle = '#ffffff'
-  ctx!.fillRect(0, 0, newCanvas.width, newCanvas.height)
+    newCanvas.width = qrCanvas.width
+    newCanvas.height = qrCanvas.height + paddingTop + paddingBottom
 
-  ctx!.fillStyle = '#000'
-  ctx!.font = 'bold 18px Arial'
-  ctx!.textAlign = 'center'
-  ctx!.fillText(
-    'TELEPHONE ASSET',
-    newCanvas.width / 2,
-    35
-  )
+    ctx!.fillStyle = '#ffffff'
+    ctx!.fillRect(0, 0, newCanvas.width, newCanvas.height)
 
-  ctx!.drawImage(qrCanvas, 0, paddingTop)
+    ctx!.fillStyle = '#000'
+    ctx!.font = 'bold 18px Arial'
+    ctx!.textAlign = 'center'
+    ctx!.fillText('TELEPHONE ASSET', newCanvas.width / 2, 35)
 
-  ctx!.font = 'bold 20px Arial'
-  ctx!.fillText(
-    qrItem.asset_code,
-    newCanvas.width / 2,
-    paddingTop + qrCanvas.height + 10
-  )
+    ctx!.drawImage(qrCanvas, 0, paddingTop)
 
-  const link = document.createElement('a')
-  link.download = `QR-${qrItem.asset_code}.png`
-  link.href = newCanvas.toDataURL('image/png')
-  link.click()
-}
+    ctx!.font = 'bold 20px Arial'
+    ctx!.fillText(
+      qrItem.asset_code,
+      newCanvas.width / 2,
+      paddingTop + qrCanvas.height + 10
+    )
+
+    const link = document.createElement('a')
+    link.download = `QR-${qrItem.asset_code}.png`
+    link.href = newCanvas.toDataURL('image/png')
+    link.click()
+  }
 
   return (
     <>
@@ -157,26 +153,15 @@ const downloadQR = () => {
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
-              style={{
-                background: '#fff',
-                padding: '30px',
-                borderRadius: '12px',
-                textAlign: 'center'
-              }}
             >
               <button
-                style={{
-                  position: 'absolute',
-                  right: 20,
-                  top: 20,
-                  cursor: 'pointer'
-                }}
+                className="qr-close"
                 onClick={() => setQrItem(null)}
               >
                 ✕
               </button>
 
-              <h3 style={{ marginBottom: '20px' }}>
+              <h3 className="qr-title">
                 QR Telephone {qrItem.asset_code}
               </h3>
 
@@ -188,17 +173,14 @@ const downloadQR = () => {
                 includeMargin
               />
 
-              <button
-                onClick={downloadQR}
-                style={{
-                  marginTop: '25px',
-                  padding: '10px 20px',
-                  cursor: 'pointer',
-                  fontWeight: 600
-                }}
-              >
-                Download for Print
-              </button>
+              <div className="qr-action">
+                <button
+                  onClick={downloadQR}
+                  className="qr-download"
+                >
+                  Download
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}

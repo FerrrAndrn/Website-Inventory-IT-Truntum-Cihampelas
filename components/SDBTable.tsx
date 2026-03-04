@@ -1,7 +1,6 @@
-"use client"
+'use client'
 
 import { useState, useEffect } from 'react'
-import { supabase } from '@/lib/supabaseClient'
 import { QRCodeCanvas } from 'qrcode.react'
 import { FiCode, FiSearch } from 'react-icons/fi'
 import { useRouter } from 'next/navigation'
@@ -37,14 +36,49 @@ export default function SDBTable({
       ? <span className="na">N/A</span>
       : v
 
+  const downloadQR = () => {
+    const qrCanvas = document.getElementById('qr-canvas') as HTMLCanvasElement
+    if (!qrCanvas || !qrItem) return
+
+    const paddingTop = 35
+    const paddingBottom = 25
+
+    const newCanvas = document.createElement('canvas')
+    const ctx = newCanvas.getContext('2d')
+
+    newCanvas.width = qrCanvas.width
+    newCanvas.height = qrCanvas.height + paddingTop + paddingBottom
+
+    ctx!.fillStyle = '#ffffff'
+    ctx!.fillRect(0, 0, newCanvas.width, newCanvas.height)
+
+    ctx!.fillStyle = '#000'
+    ctx!.font = 'bold 18px Arial'
+    ctx!.textAlign = 'center'
+    ctx!.fillText('SAFE DEPOSIT BOX ASSET', newCanvas.width / 2, 30)
+
+    ctx!.drawImage(qrCanvas, 0, paddingTop)
+
+    ctx!.font = 'bold 20px Arial'
+    ctx!.fillText(
+      qrItem.asset_code,
+      newCanvas.width / 2,
+      paddingTop + qrCanvas.height + 10
+    )
+
+    const link = document.createElement('a')
+    link.download = `QR-${qrItem.asset_code}.png`
+    link.href = newCanvas.toDataURL('image/png')
+    link.click()
+  }
+
   return (
     <>
-    
       <motion.div
         className="table-wrapper"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.8 }}
       >
         <table className="asset-table">
           <thead>
@@ -68,10 +102,7 @@ export default function SDBTable({
                 key={item.asset_code}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: i * 0.05
-                }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
               >
                 <td>{i + 1}</td>
                 <td>{show(item.asset_code)}</td>
@@ -133,9 +164,19 @@ export default function SDBTable({
               <h3>QR Safe Deposit Box {qrItem.asset_code}</h3>
 
               <QRCodeCanvas
+                id="qr-canvas"
                 value={`${process.env.NEXT_PUBLIC_SITE_URL}/sdb/detail?code=${qrItem.asset_code}`}
-                size={200}
+                size={250}
+                level="H"
+                includeMargin
               />
+
+              <button
+                className="qr-download"
+                onClick={downloadQR}
+              >
+                Download
+              </button>
             </motion.div>
           </motion.div>
         )}
