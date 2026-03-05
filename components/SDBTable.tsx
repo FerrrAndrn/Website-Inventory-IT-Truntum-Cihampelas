@@ -171,12 +171,14 @@ export default function SDBTable({
                 includeMargin
               />
 
-              <button
-                className="qr-download"
-                onClick={downloadQR}
-              >
-               <span>Download</span>
-              </button>
+              <div className="qr-action">
+                <button
+                  onClick={downloadQR}
+                  className="qr-download"
+                >
+                  <span>Download</span>
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}
