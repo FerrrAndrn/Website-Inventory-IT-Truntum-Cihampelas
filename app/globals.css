@@ -993,3 +993,47 @@ b.qr-download:hover span {
   }
 }
 
+.header-search {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 999px;
+  padding: 4px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: transparent;
+  color: white;
+  width: 200px;
+}
+
+.search-input::placeholder {
+  color: #e0e0e0;
+}
+
+.search-btn {
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: rgba(255,255,255,0.7);
+  transition: all 0.2s ease;
+}
+
+/* HOVER */
+.search-btn:hover {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  transform: scale(1.1);
+}

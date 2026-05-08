@@ -1,7 +1,7 @@
 'use client'
 
 import './globals.css'
-import { ReactNode, useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation'
 export default function RootLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false)
   const [inventoryOpen, setInventoryOpen] = useState(false)
+  const [search, setSearch] = useState('')
   const pathname = usePathname()
 
   return (
@@ -25,7 +26,33 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </button>
 
             <div className="header-text">
-              <h1>ASSET INVENTORY</h1>
+              <div className="header-search">
+                <input
+                  type="text"
+                  placeholder="Cari asset..."
+                  className="search-input"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+
+                {/* 🔍 ICON DI SINI */}
+                <button className="search-btn">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="11" cy="11" r="8" />
+    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+  </svg>
+</button>
+              </div>
             </div>
           </div>
 
@@ -74,77 +101,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
               <div className={`submenu ${inventoryOpen ? 'submenu-open' : ''}`}>
 
-                 <Link
-                  href="/cctv"
-                  className={pathname === '/cctv' ? 'active' : ''}
-                  onClick={() => setOpen(false)}
-                >
-                  CCTV
-                </Link>
+                <Link href="/cctv" className={pathname === '/cctv' ? 'active' : ''} onClick={() => setOpen(false)}>CCTV</Link>
+                <Link href="/computer" className={pathname === '/computer' ? 'active' : ''} onClick={() => setOpen(false)}>Computer</Link>
                 
-                <Link
-                  href="/computer"
-                  className={pathname === '/computer' ? 'active' : ''}
-                  onClick={() => setOpen(false)}
-                >
-                  Computer
-                </Link>
+                <Link href="/ittools" className={pathname === '/ittools' ? 'active' : ''} onClick={() => setOpen(false)}>IT Equipment</Link>
+                <Link href="/laptop" className={pathname === '/laptop' ? 'active' : ''} onClick={() => setOpen(false)}>Laptop</Link>
+                <Link href="/printer" className={pathname === '/printer' ? 'active' : ''} onClick={() => setOpen(false)}>Printer</Link>
 
-                <Link
-                  href="/ittools"
-                  className={pathname === '/ittools' ? 'active' : ''}
-                  onClick={() => setOpen(false)}
-                >
-                  IT Equipment
-                </Link>
+                <Link href="/ref" className={pathname === '/ref' ? 'active' : ''} onClick={() => setOpen(false)}>Refrigerator</Link>
 
-                <Link
-                  href="/laptop"
-                  className={pathname === '/laptop' ? 'active' : ''}
-                  onClick={() => setOpen(false)}
-                >
-                  Laptop
-                </Link>
+                <Link href="/sdb" className={pathname === '/sdb' ? 'active' : ''} onClick={() => setOpen(false)}>Safe Deposit Box</Link>
+                <Link href="/tv" className={pathname === '/tv' ? 'active' : ''} onClick={() => setOpen(false)}>Smart TV</Link>
+                <Link href="/telephone" className={pathname === '/telephone' ? 'active' : ''} onClick={() => setOpen(false)}>Telephone</Link>
 
-                <Link
-                  href="/printer"
-                  className={pathname === '/printer' ? 'active' : ''}
-                  onClick={() => setOpen(false)}
-                >
-                  Printer
-                </Link>
-                  
-                <Link
-                  href="ref"
-                  className={pathname === '/ref' ? 'active' : ''}
-                  onClick={() => setOpen(false)}
-                >
-                  Refrigerator
-                </Link>
-
-                <Link
-                  href="/sdb"
-                  className={pathname === '/sdb' ? 'active' : ''}
-                  onClick={() => setOpen(false)}
-                >
-                  Safe Deposit Box
-                </Link>
-
-                <Link
-                  href="/tv"
-                  className={pathname === '/tv' ? 'active' : ''}
-                  onClick={() => setOpen(false)}
-                >
-                  Smart TV
-                </Link>
-
-                <Link
-                  href="/telephone"
-                  className={pathname === '/telephone' ? 'active' : ''}
-                  onClick={() => setOpen(false)}
-                >
-                  Telephone
-                </Link>
+                <Link href="/engtool" className={pathname === '/engtool' ? 'active' : ''} onClick={() => setOpen(false)}>Engineering Tools</Link>
 
               </div>
             </div>
@@ -160,7 +130,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         )}
 
         <main className="main-container">
-          {children}
+          {React.isValidElement(children)
+            ? React.cloneElement(children as React.ReactElement, { search })
+            : children}
         </main>
 
       </body>

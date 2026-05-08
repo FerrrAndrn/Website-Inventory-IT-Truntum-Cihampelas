@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabaseClient'
 import { motion } from 'framer-motion'
 import { FiArrowLeft } from 'react-icons/fi'
 
-type SmartTV = {
+type Engtool = {
   asset_code?: string
   asset_name?: string
   category?: string
@@ -17,12 +17,12 @@ type SmartTV = {
   status?: string
 }
 
-export default function SmartTVDetailContent() {
+export default function EngToolDetailContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const code = searchParams.get('code')
 
-  const [data, setData] = useState<SmartTV | null>(null)
+  const [data, setData] = useState<Engtool | null>(null)
   const [loading, setLoading] = useState(true)
 
   const show = (v: any) =>
@@ -55,7 +55,7 @@ export default function SmartTVDetailContent() {
       }
 
       const { data, error } = await supabase
-        .from('smart_tv')
+        .from('engineering_tool')
         .select('*')
         .eq('asset_code', code)
         .single()
