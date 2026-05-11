@@ -130,10 +130,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         )}
 
         <main className="main-container">
-          {React.isValidElement(children)
-            ? React.cloneElement(children as React.ReactElement, { search })
-            : children}
-        </main>
+  {children}
+</main>
 
       </body>
     </html>
