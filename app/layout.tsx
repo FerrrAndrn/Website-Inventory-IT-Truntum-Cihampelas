@@ -115,6 +115,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <Link href="/telephone" className={pathname === '/telephone' ? 'active' : ''} onClick={() => setOpen(false)}>Telephone</Link>
 
                 <Link href="/engtool" className={pathname === '/engtool' ? 'active' : ''} onClick={() => setOpen(false)}>Engineering Tools</Link>
+                <Link href="/fbeq" className={pathname === '/fbeq' ? 'active' : ''} onClick={() => setOpen(false)}>F&B Equipment</Link>
 
               </div>
             </div>
